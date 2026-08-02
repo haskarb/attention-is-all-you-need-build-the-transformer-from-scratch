@@ -25,8 +25,19 @@ def build_id_to_token_vocab(token_to_id: dict):
     # TODO: build the inverse id-to-token dictionary from token_to_id
     return {v:k for k, v in token_to_id.items()}
 
-# Step 3 - encode_sentence_to_ids (not yet solved)
-# TODO: implement
+# Step 3 - encode_sentence_to_ids
+def encode_sentence_to_ids(sentence, token_to_id, unk_token='<unk>'):
+    # TODO: convert whitespace tokens of `sentence` to ids via `token_to_id`, using `unk_token`'s id for OOV
+    
+    sentence_tokens = sentence.split(" ")
+    unk_id = token_to_id[unk_token]
+    if not len(sentence):
+        return []
+    encoders = []
+    for item in sentence_tokens:
+        encoders.append(token_to_id.get(item, unk_id))
+
+    return encoders
 
 # Step 4 - decode_ids_to_tokens (not yet solved)
 # TODO: implement
