@@ -29,10 +29,11 @@ def build_id_to_token_vocab(token_to_id: dict):
 def encode_sentence_to_ids(sentence, token_to_id, unk_token='<unk>'):
     # TODO: convert whitespace tokens of `sentence` to ids via `token_to_id`, using `unk_token`'s id for OOV
     
-    sentence_tokens = sentence.split(" ")
-    unk_id = token_to_id[unk_token]
     if not len(sentence):
         return []
+    
+    sentence_tokens = sentence.split(" ")
+    unk_id = token_to_id[unk_token]
     encoders = []
     for item in sentence_tokens:
         encoders.append(token_to_id.get(item, unk_id))
