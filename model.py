@@ -215,8 +215,28 @@ def apply_attention_weights_to_values(attention_weights, value):
     return attention_weights @ value
     # pass
 
-# Step 22 - scaled_dot_product_attention (not yet solved)
-# TODO: implement
+# Step 22 - scaled_dot_product_attention
+def scaled_dot_product_attention(query, key, value, mask=None):
+    """Run scaled dot-product attention; return (context, attention_weights)."""
+    d_k = query.shape[-1]
+    
+    # 1. Compute raw attention scores
+    scores = compute_raw_attention_scores(query, key)
+    
+    # 2. Scale by sqrt(d_k)
+    scores = scale_attention_scores(scores, d_k)
+    
+    # 3. Apply mask (if provided)
+    if mask is not None:
+        scores = mask_attention_scores_with_neg_inf(scores, mask)
+    
+    # 4. Softmax to get attention weights
+    attention_weights = softmax_attention_weights(scores)
+    
+    # 5. Apply weights to values
+    context = apply_attention_weights_to_values(attention_weights, value)
+    
+    return context, attention_weights
 
 # Step 23 - split_last_dim_into_heads (not yet solved)
 # TODO: implement
